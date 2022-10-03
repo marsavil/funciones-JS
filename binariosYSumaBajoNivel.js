@@ -8,19 +8,34 @@ function convertirABinario(num){
     return binario;
 
 }
-
-function binarioADecimal(num){
-    // convierte el numero binario dad a decimal. 
-    //Precondicion: El número dado no debe tener ceros a la izquierda
-    let numero = num;
-    numero = numero.toString();
-    let decimal = 0;
-    for ( let index = numero.length - 1; index >=0 ; index --){
-      //decimal += numero[index]*(2**(numero.length -1 - index));
-      decimal += numero[index] * Math.pow(2, numero.length -1 - index)
-    }
-    return decimal
+function convertirABinario(num){ // con recursión
+    if ( num === 0 ) return '0'
+    let binario = (num % 2).toString()
+    return convertirABinario((Math.floor(num/2))) + binario
 }
+
+
+// function binarioADecimal(num){
+//     // convierte el numero binario dad a decimal. 
+//     //Precondicion: El número dado no debe tener ceros a la izquierda
+//     let numero = num;
+//     numero = numero.toString();
+//     let decimal = 0;
+//     for ( let index = numero.length - 1; index >=0 ; index --){
+//       //decimal += numero[index]*(2**(numero.length -1 - index));
+//       decimal += numero[index] * Math.pow(2, numero.length -1 - index)
+//     }
+//     return decimal
+// }
+function binarioADecimal(num){ // con recursión
+    if ( num.length === 0 ) return 0
+    let numArr = num.split(''),
+        decimal = numArr[0  ] * 2 ** (numArr.length - 1);
+    numArr.shift();
+    numArr = numArr.join('');
+    return decimal + binarioADecimal(numArr)
+}
+binarioADecimal('111')
 function convertirNumero(num, base){
     // convierte numeros binarios (base 2) a decimales (base 10) y viceversa
     if (base === 2){
